@@ -1,0 +1,19 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    
+	        <menuitem id="carDealership_menu" name="CarDealership"/>
+	        
+	        <menuitem id="carDealership_menuses_menu" name="CarDealership" parent = "carDealership_menu"/>
+	        
+	        <menuitem id="workers_menu" name="Workers" parent = "carDealership_menuses_menu" />
+	    
+	        <menuitem id="vehicles_menu" name="Vehicles" parent = "carDealership_menuses_menu" />
+	        
+	        <menuitem id="tools_menu" name="Tools" parent = "carDealership_menuses_menu" />
+	        
+	        <menuitem id="customers_menu" name="Customers" parent = "carDealership_menuses_menu" />
+        
+
+
+</odoo>
