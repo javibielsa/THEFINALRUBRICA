@@ -16,14 +16,12 @@ class carDealership(models.Model):
 class workers(models.Model):
 	_name = 'thefinalrubrica.workers'
     
-    name = fields.Char(String="Name", required=True)
+    name = fields.Char()
     date_of_birth = fields.Date()
-    #es_jefe = fields.Boolean(compute='_es_jefe')
-    age = fields.Integer()
+    age = fields.Integer()customers
     carDealership_id = fields.Many2one('thefinalrubrica.carDealership', string="CarDealership", ondelete = 'cascade')
     tools_ids = fields.Many2many(string= "ToolsUse" , comodel_name = 'thefinalrubrica.tools', relation = 'rel_workers_tools', column1='workers', column2='tools')
     vehicles_ids = fields.Many2many(string= "Something" , comodel_name = 'thefinalrubrica.vehicles', relation = 'rel_workers_vehicles', column1='workers', column2='vehicles')
-#Matizar string Something and ToolsUse (ciudad de francia)
 
 
 class tools(models.Model):
@@ -33,7 +31,6 @@ class tools(models.Model):
 	tool_type = fields.Char()
 	carDealership_id = fields.Many2one('thefinalrubrica.carDealership', string="CarDealership", ondelete = 'cascade')
 	workers_ids = fields.Many2many(string= "WorkerTools" , comodel_name = 'thefinalrubrica.workers', relation = 'rel_workers_tools', column1='tools', column2='workers')
-#Matizar string workertools
 
 
 class vehicles(models.Model):
