@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Concesionario",
+    'name': "thefinalrubrica",
 
     'summary': """
         Vaya, no funciona bien""",

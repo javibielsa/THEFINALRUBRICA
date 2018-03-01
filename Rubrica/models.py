@@ -1,54 +1,40 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields
+from datetime import timedelta,date,datetime
 
     
 class carDealership(models.Model):
-    _name = 'thefinalrubrica.carDealership'
+    _name = 'thefinalrubrica.cardealership'
 
-    direction = fields.Char(String="Name", required=True)
-    workers_ids = fields.One2many('thefinalrubrica.workers', 'carDealership_id', string="Workers")
+    direction = fields.Char()
+    workers_ids = fields.One2many('thefinalrubrica.worker', 'carDealership_id', string="Workers")
     tools_ids = fields.One2many('thefinalrubrica.tools', 'carDealership_id', string="Tools")
     vehicles_ids = fields.One2many('thefinalrubrica.vehicles', 'carDealership_id', string="Vehicles")
-    customers_ids = fields.One2many('thefinalrubrica.customers', 'carDealership_id', string="Customers")
-
-
-class workers(models.Model):
-	_name = 'thefinalrubrica.workers'
-    
-    name = fields.Char()
-    date_of_birth = fields.Date()
-    age = fields.Integer()customers
-    carDealership_id = fields.Many2one('thefinalrubrica.carDealership', string="CarDealership", ondelete = 'cascade')
-    tools_ids = fields.Many2many(string= "ToolsUse" , comodel_name = 'thefinalrubrica.tools', relation = 'rel_workers_tools', column1='workers', column2='tools')
-    vehicles_ids = fields.Many2many(string= "Something" , comodel_name = 'thefinalrubrica.vehicles', relation = 'rel_workers_vehicles', column1='workers', column2='vehicles')
-
 
 class tools(models.Model):
 	_name = 'thefinalrubrica.tools'
 
-	name = fields.Char(String="Name", required=True)
+	name = fields.Char()
 	tool_type = fields.Char()
-	carDealership_id = fields.Many2one('thefinalrubrica.carDealership', string="CarDealership", ondelete = 'cascade')
-	workers_ids = fields.Many2many(string= "WorkerTools" , comodel_name = 'thefinalrubrica.workers', relation = 'rel_workers_tools', column1='tools', column2='workers')
+	carDealership_id = fields.Many2one('thefinalrubrica.cardealership', string="CarDealership")
+	workers_ids = fields.Many2many(string= "WorkerTools" , comodel_name = 'thefinalrubrica.worker', relation = 'rel_workers_tools', column1='tools', column2='worker')
 
 
 class vehicles(models.Model):
 	_name = 'thefinalrubrica.vehicles'
 
-	matricula = fields.Char(String="NumberPlate", required=True)
+	matricula = fields.Char()
 	name = fields.Char()
-	color = fields.Char()
-	carDealership_id = fields.Many2one('thefinalrubrica.carDealership', string="CarDealership", ondelete = 'cascade')
-	workers_ids = fields.Many2many(string= "Something" , comodel_name = 'thefinalrubrica.workers', relation = 'rel_workers_vehicles', column1='vehicles', column2='workers')
-	customers_id = fields.Many2one('thefinalrubrica.customers', string="Customers", ondelete = 'cascade')
+	color = fields.Selection(selection=[('1', 'Blanco'), ('2', 'Gris'), ('3', 'Negro')])
+	carDealership_id = fields.Many2one('thefinalrubrica.cardealership', string="CarDealership")
+	worker_ids = fields.Many2many(string= "Something" , comodel_name = 'thefinalrubrica.worker', relation = 'rel_workers_vehicles', column1='vehicles', column2='worker')
+	customers_id = fields.Many2one('thefinalrubrica.customers', string="Customers")
 
+class worker(models.Model):
+    _name = 'thefinalrubrica.worker'
 
-class customers(models.Model):
-	_name = 'thefinalrubrica.customers'
-
-	name = fields.Char(String="Name", required=True)
-    age = fields.Integer()
-    country = fields.Char(String="Country", required=True)
-    carDealership_id = fields.Many2one('thefinalrubrica.carDealership', string="CarDealership", ondelete = 'cascade')
-    vehicles_ids = fields.One2many('thefinalrubrica.vehicles', 'customers_id', string="Vehicles")
+    name = fields.Char()
+    carDealership_id = fields.Many2one('thefinalrubrica.cardealership', string="CarDealership")
+    vehicles_id = fields.Many2many(string= "Something" , comodel_name = 'thefinalrubrica.vehicles', relation = 'rel_workers_vehicles', column1='worker', column2='vehicles')
+    tools_id = fields.Many2many(string= "WorkerTools" , comodel_name = 'thefinalrubrica.tools', relation = 'rel_workers_tools', column1='worker', column2='tools')
